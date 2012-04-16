@@ -2,7 +2,7 @@
 
 A script to:
 
-1. extract chars from *Localizable.strings*
+1. extract chars from *Localizable.strings* or any text file
 2. extract a *font subset* using *[font-optimizer][1]* 
 3. set its *font family* as the *outputfile* name.
 
