@@ -1,6 +1,10 @@
 # Font-Extractor for iPhone Apps
 
-A script to extract chars from *Localizable.strings*, and then extract a *font subset* using *[font-optimizer][1]* & set its *font family* as the *outputfile* name.
+A script to:
+
+1. extract chars from *Localizable.strings*
+2. extract a *font subset* using *[font-optimizer][1]* 
+3. set its *font family* as the *outputfile* name.
 
 [1]: https://bitbucket.org/philip/font-optimizer/src/
 
