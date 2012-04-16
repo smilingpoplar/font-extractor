@@ -4,7 +4,7 @@ A script to:
 
 1. extract unique chars from *Localizable.strings* or any text file
 2. extract a *font subset* using *[font-optimizer][1]* 
-3. set its *font family* as the *outputfile* name.
+3. set its *font family* as the *outputfile* name
 
 [1]: https://bitbucket.org/philip/font-optimizer/src/
 
