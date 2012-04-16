@@ -22,8 +22,10 @@ def extractChars(stringsfile):
         value = re.sub(r'\\"', '"', value)
         return value
     
-    with codecs.open(stringsfile, 'r', 'utf-8') as f:
+    with open(stringsfile) as f:
         text = f.read()
+    # convert plain Python string to Unicode: "decode"
+    text = unicode(text, 'utf-8')
     text = removeComments(text)
     charSet = set()
     lines = [line for line in text.splitlines() if line.strip() ]
@@ -34,18 +36,21 @@ def extractChars(stringsfile):
             continue
         for char in extractValue(kv[1]):
             charSet.add(char)        
-    return ''.join(charSet)
+    chars = ''.join(charSet)
+    # convert Unicode to plain Python string: "encode"
+    chars = chars.encode("utf-8")
+    return chars
 
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
-        print 'usage: ./string-extractor.py [stringsfile] [charsfile.unique]'
+        print 'usage: ./string-extractor.py [stringsfile.strings] [charsfile.unique]'
         exit(-1)
-    stringsfile = sys.argv[1]
+    stringsfile, charsfile = sys.argv[1:]
     chars = extractChars(stringsfile)
     print chars
-    charsfile = sys.argv[2]
-    with codecs.open(charsfile, 'w', 'utf-8') as f:
+
+    with open(charsfile, 'w') as f:
         f.write(chars)
 
     
