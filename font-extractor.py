@@ -10,7 +10,7 @@ def run(cmd):
 
 if __name__ == '__main__':
     if len(sys.argv) != 4:
-        print 'usage: ./font-extractor.py [stringsfile.strings] [inputfile.ttf] [outputfile.ttf]]'
+        print 'usage: ./font-extractor.py [stringsfile|textfile] [inputfile.ttf] [outputfile.ttf]]'
         exit(-1)
     stringsfile, inputfile, outputfile = sys.argv[1:]
     suffix = '.ttf'
@@ -26,10 +26,10 @@ if __name__ == '__main__':
     # generate charsfile
     tmpCharsfile = tmpDir + 'tmp.charsfile'
     cmdExtractStrings = '''
-    ./strings-extractor.py %(stringsfile)s %(charsfile)s
+    ./unique-chars-extractor.py %(inputfile)s %(outputfile)s
     ''' % {
-        'stringsfile' : stringsfile,
-        'charsfile' : tmpCharsfile
+        'inputfile' : stringsfile,
+        'outputfile' : tmpCharsfile
         }
     run(cmdExtractStrings)
 

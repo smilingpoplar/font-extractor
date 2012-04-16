@@ -9,7 +9,7 @@ A script to:
 [1]: https://bitbucket.org/philip/font-optimizer/src/
 
 ### Usage:
-    ./font-extractor.py [stringsfile.strings] [inputfile.ttf] [outputfile.ttf]
+    ./font-extractor.py [stringsfile|textfile] [inputfile.ttf] [outputfile.ttf]
 
 Later, you can [add the custom font][2] to your app
 
