@@ -49,13 +49,13 @@ def uniqueCharsFromStringsText(text):
 def doSthWithFile(inputfile, block, outputfile):
     with open(inputfile) as f:
         text = f.read()
-    # convert plain Python string to Unicode: "decode"
-    text = unicode(text, 'utf-8')
+    # utf-8 => python internal unicode
+    text = text.decode('utf-8')
 
     # do something
     text = block(text)
 
-    # convert Unicode to plain Python string: "encode"
+    # python internal unicode => utf-8
     text = text.encode("utf-8")
     print text
     with open(outputfile, 'w') as f:
