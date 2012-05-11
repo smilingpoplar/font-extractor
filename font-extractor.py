@@ -48,7 +48,6 @@ if __name__ == '__main__':
     cmdModifyNames = '''
     cd font-optimizer
     ./modify-names.pl --set family %(fontName)s %(inputfile)s %(outputfile)s
-     mv %(outputfile)s ..
     ''' % {
         'fontName' : fontName,
         'inputfile' : tmpTtf,
