@@ -12,46 +12,53 @@ if __name__ == '__main__':
     if len(sys.argv) != 4:
         print 'usage: ./font-extractor.py [stringsfile|textfile] [inputfile.ttf] [outputfile.ttf]]'
         exit(-1)
-    stringsfile, inputfile, outputfile = sys.argv[1:]
+    stringsFile, inputFile, outputFile = sys.argv[1:]
     suffix = '.ttf'
-    if outputfile.endswith(suffix):
-        fontName = outputfile[:-len(suffix)]
+    if outputFile.endswith(suffix):
+        fontName = outputFile[:-len(suffix)]
     else:
-        fontName = outputfile
-        outputfile = outputfile + suffix
+        fontName = outputFile
+        outputFile = outputFile + suffix
+
+    currentDir = os.path.dirname(os.path.realpath(sys.argv[0]))
+    if not os.path.dirname(outputFile):
+        outputFile = os.path.join(os.getcwd(), outputFile)
 
     tmpDir = '/var/tmp/font-extractor/'
     os.system('mkdir -p %s' % tmpDir)
 
     # generate charsfile
-    tmpCharsfile = tmpDir + 'tmp.charsfile'
+    tmpCharsFile = tmpDir + 'tmp.charsfile'
     cmdExtractStrings = '''
-    ./unique-chars-extractor.py %(inputfile)s %(outputfile)s
+    %(currentDir)s/unique-chars-extractor.py %(inputFile)s %(outputFile)s
     ''' % {
-        'inputfile' : stringsfile,
-        'outputfile' : tmpCharsfile
+        'currentDir' : currentDir,
+        'inputFile' : stringsFile,
+        'outputFile' : tmpCharsFile
         }
     run(cmdExtractStrings)
 
     # generate a subset of font
     tmpTtf = tmpDir + 'tmp.ttf'
     cmdSubset = '''
-    cd font-optimizer
-    ./subset.pl --charsfile=%(charsfile)s %(inputfile)s %(outputfile)s
+    (cd %(currentDir)s/font-optimizer &&
+    ./subset.pl --charsfile=%(charsFile)s %(inputFile)s %(outputFile)s)
     ''' % {
-        'charsfile' : tmpCharsfile,
-        'inputfile' : inputfile,
-        'outputfile': tmpTtf
+        'currentDir' : currentDir,
+        'charsFile' : tmpCharsFile,
+        'inputFile' : inputFile,
+        'outputFile': tmpTtf
         }
     run(cmdSubset)
     
     cmdModifyNames = '''
-    cd font-optimizer
-    ./modify-names.pl --set family %(fontName)s %(inputfile)s %(outputfile)s
+    (cd %(currentDir)s/font-optimizer &&
+    ./modify-names.pl --set family %(fontName)s %(inputFile)s %(outputFile)s)
     ''' % {
+        'currentDir' : currentDir,
         'fontName' : fontName,
-        'inputfile' : tmpTtf,
-        'outputfile' : outputfile
+        'inputFile' : tmpTtf,
+        'outputFile' : outputFile
         }
     run(cmdModifyNames)
     
