@@ -20,11 +20,16 @@ if __name__ == '__main__':
     else:
         outputFile = outputFile + suffix
 
+    if os.path.exists(outputFile) and os.path.getmtime(outputFile) > os.path.getmtime(stringsFile):
+        print 'no need to extract, %s is newer than %s' % (outputFile, stringsFile)
+        exit(0)
+
     currentDir = os.path.dirname(os.path.realpath(sys.argv[0]))
     if not os.path.dirname(outputFile):
         outputFile = os.path.join(os.getcwd(), outputFile)
 
     tmpDir = '/var/tmp/font-extractor/'
+    os.system('rm -fr %s' % tmpDir)
     os.system('mkdir -p %s' % tmpDir)
 
     # generate charsfile
