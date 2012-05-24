@@ -14,10 +14,10 @@ if __name__ == '__main__':
         exit(-1)
     stringsFile, inputFile, outputFile = sys.argv[1:]
     suffix = '.ttf'
-    if outputFile.endswith(suffix):
-        fontName = outputFile[:-len(suffix)]
+    fontName = os.path.basename(outputFile)
+    if fontName.endswith(suffix):
+        fontName = fontName[:-len(suffix)]
     else:
-        fontName = outputFile
         outputFile = outputFile + suffix
 
     currentDir = os.path.dirname(os.path.realpath(sys.argv[0]))
