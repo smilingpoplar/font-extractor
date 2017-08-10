@@ -47,7 +47,7 @@ if __name__ == '__main__':
     tmpTtf = tmpDir + 'tmp.ttf'
     cmdSubset = '''
     (cd %(currentDir)s/font-optimizer &&
-    ./subset.pl --charsfile=%(charsFile)s %(inputFile)s %(outputFile)s)
+    ./subset.pl --charsfile=%(charsFile)s "%(inputFile)s" %(outputFile)s)
     ''' % {
         'currentDir' : currentDir,
         'charsFile' : tmpCharsFile,
@@ -58,7 +58,7 @@ if __name__ == '__main__':
     
     cmdModifyNames = '''
     (cd %(currentDir)s/font-optimizer &&
-    ./modify-names.pl --set family %(fontName)s %(inputFile)s %(outputFile)s)
+    ./modify-names.pl --set family "%(fontName)s" %(inputFile)s "%(outputFile)s")
     ''' % {
         'currentDir' : currentDir,
         'fontName' : fontName,
