@@ -1425,7 +1425,7 @@ sub change_name {
                 next unless $str->[$plat][$enc];
                 for my $lang (keys %{$str->[$plat][$enc]}) {
                     next unless exists $str->[$plat][$enc]{$lang};
-                    $str->[$plat][$enc]{$lang} = "$uid - subset of " . $str->[$plat][$enc]{$lang};
+                    $str->[$plat][$enc]{$lang} = $str->[$plat][$enc]{$lang};
                 }
             }
         }
@@ -1492,8 +1492,9 @@ sub subset {
     my ($self, $filename, $chars, $options) = @_;
 
     $self->{features} = $options->{features};
+    
+    my $uid = substr(sha1_hex(Encode::encode_utf8("$filename $chars")), 0, 16);
 
-    my $uid = substr(sha1_hex("$filename $chars"), 0, 16);
 
     if (not $self->{font}) {
         $self->preload($filename);
